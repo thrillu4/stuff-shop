@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import s from "../../styles/Products.module.css";
 
 const Products = ({ title, style = {}, products = [], amount }) => {
-  const list = products.filter((_, i) => i > amount);
+  const list = products.filter((_, i) => i < amount);
   return (
     <section className={s.products} style={style}>
       {title && <h2>{title}</h2>}
