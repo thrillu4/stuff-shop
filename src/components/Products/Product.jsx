@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import s from "../../styles/Product.module.css";
 import { ROUTES } from "../../utils/routes";
+import { addItemsToCart } from "../../features/user/userSlice";
 
 const SIZES = [4, 4.5, 5];
 
-const Product = ({ images, title, price, description }) => {
+const Product = (item) => {
+  const { images, title, price, description } = item;
+
+  const dispatch = useDispatch();
+
   const [currentImage, setCurrentImage] = useState();
   const [currentSize, setCurrentSize] = useState();
 
@@ -16,6 +22,10 @@ const Product = ({ images, title, price, description }) => {
 
     setCurrentImage(images[0]);
   }, [images]);
+
+  const addToCard = () => {
+    dispatch(addItemsToCart(item));
+  };
 
   return (
     <section className={s.product}>
@@ -54,7 +64,7 @@ const Product = ({ images, title, price, description }) => {
         </div>
         <p className={s.description}>{description}</p>
         <div className={s.actions}>
-          <button disabled={!currentSize} className={s.add}>
+          <button onClick={addToCard} disabled={!currentSize} className={s.add}>
             Add to cart
           </button>
           <button className={s.favorites}>Add to favorites</button>
