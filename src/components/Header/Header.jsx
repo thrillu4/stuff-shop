@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import s from "../../styles/Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../images/logo.svg";
-import avatar from "../../images/avatar.jpg";
+import avatar from "../../images/avatar.png";
 import { ROUTES } from "../../utils/routes";
 import { toggleForm } from "../../features/user/userSlice";
 import { useState } from "react";
@@ -13,8 +13,8 @@ import { useGetProductsQuery } from "../../features/api/apiSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useSelector(({ user }) => user);
-  const [values, setValues] = useState({ name: "Silvana", avatar: avatar });
+  const { currentUser, cart, favorite } = useSelector(({ user }) => user);
+  const [values, setValues] = useState({ name: "Your name", avatar: avatar });
   const [searchValue, setSearchValue] = useState("");
   const { data, isLoading } = useGetProductsQuery({ title: searchValue });
   useEffect(() => {
@@ -90,17 +90,20 @@ const Header = () => {
           )}
         </form>
         <div className={s.account}>
-          <Link to={ROUTES.HOME} className={s.favourites}>
+          <Link to={ROUTES.FAVORITE} className={s.favourites}>
             <svg className={s["icon-fav"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
             </svg>
+            {!!favorite.length && (
+              <span className={s.count}>{favorite.length}</span>
+            )}
           </Link>
           <Link to={ROUTES.CART} className={s.cart}>
             <svg className={s["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
+            {!!cart.length && <span className={s.count}>{cart.length}</span>}
           </Link>
-          <span className={s.count}>2</span>
         </div>
       </div>
     </div>

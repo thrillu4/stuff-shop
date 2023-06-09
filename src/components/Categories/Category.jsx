@@ -33,10 +33,10 @@ const Category = () => {
   useEffect(() => {
     if (!id) return;
     setParams({ ...defaultParams, categoryId: id });
-    // eslint-disable-next-line
     setValues(defaultValues);
     setItems([]);
     setIsEnd(false);
+    // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {
@@ -60,12 +60,13 @@ const Category = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (values.price_max === 0 && values.title === "" && values.price_min === 0)
+      return;
     setItems([]);
     setIsEnd(false);
-    setParams({ ...defaultParams, ...values });
+    setValues(defaultValues);
+    setParams({ ...params, ...values });
   };
-
   return (
     <section className={s.wrapper}>
       <h2 className={s.title}>{cat?.name}</h2>
@@ -99,7 +100,7 @@ const Category = () => {
           />
           <span>Price to</span>
         </div>
-        <button type="submit" hidden />
+        <button type="submit">Search</button>
       </form>
       {isLoading ? (
         <div className={s.preloader}></div>
@@ -110,6 +111,7 @@ const Category = () => {
             onClick={() => {
               setValues(defaultValues);
               setParams(defaultParams);
+              setIsEnd(false);
             }}
           >
             Reset

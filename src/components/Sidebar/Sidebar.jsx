@@ -29,14 +29,6 @@ const Sidebar = () => {
         <a href="/help" target="_blank" className={s.link}>
           Help
         </a>
-        <a
-          href="/terms"
-          target="_blank"
-          className={s.link}
-          style={{ textDecoration: "underline" }}
-        >
-          Terms & Conditions
-        </a>
       </div>
     </section>
   );
