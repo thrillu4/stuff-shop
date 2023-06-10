@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import s from "../../styles/Product.module.css";
-import { ROUTES } from "../../utils/routes";
 import {
   addItemsToCart,
   addItemsToFavorite,
@@ -81,7 +80,7 @@ const Product = (item) => {
 
         <div className={s.bottom}>
           <div className={s.purchase}>19 people purchased</div>
-          <Link to={ROUTES.HOME}>Return to store</Link>
+          <Link to="/">Return to store</Link>
         </div>
       </div>
     </section>
